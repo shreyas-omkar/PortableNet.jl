@@ -1,0 +1,14 @@
+name = "PortableNet"
+uuid = "ca8307af-1517-4ef7-9070-b62c8ac8ec83"
+authors = ["Shreyas Hegde <shreyashegdeplus06@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+KernelAbstractions = "63c18a36-062a-441e-b654-da1e3ab1ce7c"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+
+[compat]
+KernelAbstractions = "0.9"
+julia = "1.9"
