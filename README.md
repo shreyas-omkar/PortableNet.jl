@@ -17,18 +17,25 @@ epoch  2000   loss 0.0329   train acc 99.33%
 final train accuracy: 99.33%
 ```
 
-## The one line that changes
+## The one value that changes
+
+Inside the library a single `backend` value selects the device. Everything else
+in the program stays identical, which is the whole point of the JuliaGPU stack.
 
 ```julia
-backend = CPU()                         # works everywhere, no GPU package needed
-# using CUDA;   backend = CUDABackend()   # NVIDIA
-# using AMDGPU; backend = ROCBackend()    # AMD
-# using oneAPI; backend = oneAPIBackend() # Intel
-# using Metal;  backend = MetalBackend()  # Apple Silicon
+backend = CPU()            # works everywhere, no GPU package needed
+backend = CUDABackend()    # NVIDIA
+backend = ROCBackend()     # AMD
+backend = oneAPIBackend()  # Intel
+backend = MetalBackend()   # Apple Silicon
 ```
 
-Everything else in the program stays identical. That is the whole point of the
-JuliaGPU stack.
+The example script picks this up from a command line argument, so you never edit
+a file to switch devices:
+
+```bash
+julia --project=. examples/train.jl cpu    # or: cuda, amd, intel, metal
+```
 
 ## How it maps onto the JuliaGPU stack
 
@@ -64,15 +71,18 @@ Requires Julia 1.9 or newer.
 git clone https://github.com/shreyas-omkar/PortableNet.jl
 cd PortableNet.jl
 julia --project=. -e 'using Pkg; Pkg.instantiate()'
-julia --project=. examples/train.jl
+julia --project=. examples/train.jl cpu
 ```
 
 That runs on the CPU out of the box. To run on a GPU, install the backend package
-for your hardware and uncomment the matching line in `examples/train.jl`:
+for your hardware once, then pass the device name:
 
 ```bash
 julia --project=. -e 'using Pkg; Pkg.add("CUDA")'    # or AMDGPU, oneAPI, Metal
+julia --project=. examples/train.jl cuda             # or amd, intel, metal
 ```
+
+See [WALKTHROUGH.md](WALKTHROUGH.md) for step by step setup on Windows and Linux.
 
 ## What is inside
 
