@@ -126,18 +126,19 @@ same accuracy as the CPU run.
 
 ## 6. Demo on cyclops
 
-A ready copy lives at `~/PortableNet.jl` on cyclops, with CUDA already cached so
-the GPU run starts without a download.
+A ready copy lives at `~/PortableNet.jl` on cyclops, cloned from this repo with
+CUDA already installed, so the GPU run starts with no setup.
 
 ```bash
 ssh shreyas-omkar@cyclops.juliacomputing.io
 cd ~/PortableNet.jl
-git pull
-/opt/julia-1.12/bin/julia --project=. -e 'using Pkg; Pkg.add("CUDA")'   # instant, cached
-/opt/julia-1.12/bin/julia --project=. examples/train.jl cuda
-# and the CPU run, same code:
-/opt/julia-1.12/bin/julia --project=. examples/train.jl cpu
+git pull                                                      # get the latest code
+/opt/julia-1.12/bin/julia --project=. examples/train.jl cuda  # same code on the RTX 5080
+/opt/julia-1.12/bin/julia --project=. examples/train.jl cpu   # same code on the CPU
 ```
+
+Running the two commands back to back is the clearest way to show one source
+file on two very different devices.
 
 ## Troubleshooting
 
